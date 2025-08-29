@@ -1,6 +1,6 @@
 # Мой сайт на GitHub Pages/My site on Github Pages
 ru:
-Это личный сайт-визитка, созданный с помощью GitHub Pages.
+Это личный сайт-визитка, созданный с помощью GitHub Pages.\n
 eng:
 This is a personal website created using GitHub Pages.
 
