@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Senko | Guardian Profile</title>
+    <title>Senko | Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -13,9 +13,9 @@
             --senko-accent: #ff8800;
             --senko-dark: #4a3b32;
             --senko-gray: #795548;
-            --card-bg: rgba(255, 255, 255, 0.5);
-            --card-border: rgba(255, 255, 255, 0.7);
-            --card-hover: rgba(255, 255, 255, 0.8);
+            --card-bg: rgba(255, 255, 255, 0.2);
+            --card-border: rgba(255, 255, 255, 0.4);
+            --card-hover-bg: rgba(255, 255, 255, 0.25);
             --shadow: 0 8px 32px 0 rgba(80, 40, 0, 0.1);
         }
 
@@ -118,13 +118,12 @@
             gap: 15px;
             width: 100%;
             max-width: 500px; 
-            opacity: 0; 
-            transform: translateY(40px);
-            transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        
-        .bento-container.visible {
             opacity: 1;
+            transform: translateY(40px);
+            transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .bento-container.visible {
             transform: translateY(0);
         }
 
@@ -133,9 +132,9 @@
             border: 2px solid var(--card-border);
             border-radius: 24px;
             padding: 20px;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s, box-shadow 0.3s;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
             text-decoration: none;
             color: var(--senko-dark);
             box-shadow: var(--shadow);
@@ -147,7 +146,7 @@
 
         .card:hover {
             transform: translateY(-5px);
-            background: var(--card-hover);
+            background: var(--card-hover-bg);
             box-shadow: 0 15px 40px rgba(100, 50, 0, 0.2);
             border-color: #fff;
             z-index: 10;
@@ -240,10 +239,10 @@
             font-weight: 700;
             color: var(--senko-gray);
             border: 2px dashed rgba(255,255,255,0.6);
-            background: rgba(255,255,255,0.3);
+            background: rgba(255,255,255,0.15);
         }
         .feedback-card:hover {
-            background: #fff;
+            background: rgba(255,255,255,0.25);
             color: var(--senko-accent);
             border-style: solid;
         }
