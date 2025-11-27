@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senko | Guardian Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --senko-accent: #ff8800;
+            --senko-dark: #4a3b32;
+            --senko-gray: #795548;
+            --card-bg: rgba(255, 255, 255, 0.65);
+            --card-border: rgba(255, 255, 255, 0.9);
+            --card-hover: rgba(255, 255, 255, 0.9);
+            --shadow: 0 8px 32px 0 rgba(80, 40, 0, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: var(--senko-dark);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; 
+            padding: 40px 8%;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), 
+                url('wallpaper.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+
+        .bento-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; 
+            grid-auto-rows: minmax(auto, auto);
+            gap: 15px;
+            width: 100%;
+            max-width: 500px; 
+            animation: slideIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 24px;
+            padding: 20px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--senko-dark);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-4px) scale(1.02);
+            background: var(--card-hover);
+            box-shadow: 0 15px 40px rgba(100, 50, 0, 0.15);
+            border-color: #fff;
+            z-index: 10;
+        }
+
+        .profile-card {
+            grid-column: span 2;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 25px;
+        }
+
+        .avatar {
+            width: 100px; height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .bio h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 2px;
+            color: #3e2723;
+        }
+
+        .typewriter {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--senko-accent);
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        .location { font-size: 0.85rem; color: var(--senko-gray); font-weight: 600; }
+
+        .stats-card {
+            grid-column: span 2;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .stat-item { text-align: center; }
+        .stat-val { font-weight: 800; font-size: 1.1rem; color: var(--senko-dark); }
+        .stat-label { font-size: 0.75rem; color: var(--senko-gray); margin-top: 2px; }
+        .pill { 
+            background: rgba(255,136,0,0.15); color: #d84315; 
+            padding: 2px 6px; border-radius: 6px; font-size: 0.7rem; 
+            vertical-align: middle;
+        }
+
+        .link-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            height: 110px;
+            text-align: center;
+        }
+        .link-card i { font-size: 2rem; transition: 0.3s; color: var(--senko-dark); }
+        .link-card span { font-weight: 800; font-size: 0.9rem; }
+        
+        .telegram:hover i { color: #229ED9; }
+        .steam:hover i { color: #1b2838; }
+        .github:hover i { color: #333; }
+        
+        .discord-btn { cursor: pointer; }
+        .discord-btn:hover i { color: #5865F2; }
+
+        .feedback-card {
+            grid-column: span 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            font-weight: 700;
+            color: var(--senko-gray);
+            border: 2px dashed rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.4);
+        }
+        .feedback-card:hover {
+            background: #fff;
+            color: var(--senko-accent);
+            border-style: solid;
+        }
+
+        #toast {
+            position: fixed;
+            top: 30px; left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: #fff;
+            color: var(--senko-accent);
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 800;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            opacity: 0;
+            transition: 0.4s;
+            z-index: 100;
+            display: flex; align-items: center; gap: 10px;
+        }
+        #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        @media (max-width: 900px) {
+            body {
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                background-image: 
+                    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                    url('wallpaper.png');
+            }
+            .bento-container {
+                max-width: 100%;
+            }
+            .profile-card {
+                flex-direction: row;
+                text-align: left;
+                padding: 20px;
+            }
+            .avatar {
+                width: 80px; height: 80px;
+            }
+            .bio h1 { font-size: 1.6rem; }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bento-container">
+        
+        <div class="card profile-card">
+            <img src="senko_header.jpg" alt="Senko" class="avatar">
+            <div class="bio">
+                <h1>Senko</h1>
+                <div class="typewriter" id="typing-text"></div>
+                <div class="location"><i class="fa-solid fa-location-dot" style="color:#ff6b6b"></i> Kazan, Russia</div>
+            </div>
+        </div>
+
+        <div class="card stats-card">
+            <div class="stat-item">
+                <div class="stat-val">15 <span style="font-size:0.8em; font-weight:400; color:#888">(804)</span></div>
+                <div class="stat-label">Years</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-val">RU, EN <span class="pill">B2</span></div>
+                <div class="stat-label">Langs</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-val">JP, PY</div>
+                <div class="stat-label">Learning</div>
+            </div>
+        </div>
+
+        <a href="https://t.me/ilovesenko" target="_blank" class="card link-card telegram">
+            <i class="fa-brands fa-telegram"></i>
+            <span>PM</span>
+        </a>
+
+        <a href="https://github.com/SenkoGuardian" target="_blank" class="card link-card github">
+            <i class="fa-brands fa-github"></i>
+            <span>GitHub</span>
+        </a>
+
+        <a href="https://steamcommunity.com/profiles/76561198987339637/" target="_blank" class="card link-card steam">
+            <i class="fa-brands fa-steam"></i>
+            <span>Steam</span>
+        </a>
+
+        <div class="card link-card discord-btn" onclick="copyDiscord()">
+            <i class="fa-brands fa-discord"></i>
+            <span>Discord</span>
+            <span style="font-size: 0.7rem; color: #888; font-weight: 400;">(Click to Copy)</span>
+        </div>
+
+        <a href="https://t.me/SenkoHelp_bot?start=AuroraFeedBack" target="_blank" class="card feedback-card">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Send Feedback (Bot)</span>
+        </a>
+
+    </div>
+
+    <div id="toast"><i class="fa-solid fa-check"></i> Discord ID Copied!</div>
+
+    <script>
+        const textElement = document.getElementById('typing-text');
+        const phrases = ['System Guardian 🛡️', 'Real Name: Secret 🔒', 'The Helpful Fox 🦊'];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            let typeSpeed = isDeleting ? 50 : 100;
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                typeSpeed = 2500; isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; typeSpeed = 500;
+            }
+            setTimeout(type, typeSpeed);
+        }
+        document.addEventListener('DOMContentLoaded', type);
+
+        function copyDiscord() {
+            navigator.clipboard.writeText("ilovesenko2");
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+    </script>
+</body>
+</html>
